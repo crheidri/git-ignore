@@ -18,12 +18,20 @@ usage() {
     exit 1
 }
 
+function github_api() {
+    local baseurl="https://raw.githubusercontent.com"
+    curl --silent --fail \
+        --output ".gitignore" \
+        "$baseurl/$owner/$repo/master/$file"
+    status=$? # return status of curl call
+}
+
 # parse variables
 global=
 name=
 while [ "$1" != "" ]; do
     case "$1" in
-        -g | --global )     global=1
+        -g | --global )     global="Global/"
                             ;;
         -h | --help )       usage
                             exit
@@ -33,23 +41,17 @@ while [ "$1" != "" ]; do
     shift
 done
 
-# find gitignore url
-baseurl="https://api.github.com/repos/github/gitignore/contents/"
-if [ -z "$global" ]
-then
-    url="$baseurl/$name.gitignore"
-else
-    url="$baseurl/Global/$name.gitignore"
-fi
+# get file
+owner="github"
+repo="gitignore"
+file="$global$name.gitignore"
+github_api $owner $repo $file
 
 # check if url exists
-status=$(curl -s --head -w %{http_code} $url -o /dev/null)
-if [ "$status" = "404" ]
+if [ "$status" != "0" ]
 then
     echo "No gitignore template found for '$name'. Check case-sensitive name, or use '--global' flag."
     exit 1
+else
+    echo "Retrieved '$name.gitignore' as './.gitignore'"
 fi
-
-# get the file
-curl -o .gitignore $url --header "Accept: application/vnd.github.3.raw" 2> /dev/null
-echo "Retrieved '$name.gitignore' as './.gitignore'"
