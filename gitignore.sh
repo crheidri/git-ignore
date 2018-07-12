@@ -34,7 +34,7 @@ while [ "$1" != "" ]; do
 done
 
 # find gitignore url
-baseurl="https://raw.githubusercontent.com/github/gitignore/master"
+baseurl="https://api.github.com/repos/github/gitignore/contents/"
 if [ -z "$global" ]
 then
     url="$baseurl/$name.gitignore"
@@ -51,5 +51,5 @@ then
 fi
 
 # get the file
-curl -o .gitignore $url 2> /dev/null
+curl -o .gitignore $url --header "Accept: application/vnd.github.3.raw" 2> /dev/null
 echo "Retrieved '$name.gitignore' as './.gitignore'"
