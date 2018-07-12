@@ -22,7 +22,7 @@ function github_api() {
     local baseurl="https://raw.githubusercontent.com"
     curl --silent --fail \
         --output ".gitignore" \
-        "$baseurl/$owner/$repo/master/$file"
+        "$baseurl/$1/$2/master/$3"
     status=$? # return status of curl call
 }
 
