@@ -19,6 +19,14 @@ usage() {
 }
 
 function github_api() {
+#github_api fetch template from GitHub  as .gitignore
+# Inputs:
+#   'owner': owner of repo on GitHub (default 'github')
+#   'repo': name of repo (default 'gitignore')
+#   'file': filename (with Global/ prefix if --global)
+# Outputs:
+#   None
+
     local baseurl="https://raw.githubusercontent.com"
     curl --silent --fail \
         --output ".gitignore" \
