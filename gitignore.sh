@@ -50,11 +50,7 @@ while [ "$1" != "" ]; do
 done
 
 # exit if no gitignore_name given
-if [ -z "$name" ]
-then
-    echo "gitignore_name input required."
-    exit 1
-fi
+: "${name:?gitignore_name input required.}"
 
 # get file
 owner="github"
