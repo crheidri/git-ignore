@@ -49,6 +49,13 @@ while [ "$1" != "" ]; do
     shift
 done
 
+# exit if no gitignore_name given
+if [ -z "$name" ]
+then
+    echo "gitignore_name input required."
+    exit 1
+fi
+
 # get file
 owner="github"
 repo="gitignore"
