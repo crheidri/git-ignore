@@ -38,7 +38,7 @@ function github_api() {
 
     local baseurl="https://raw.githubusercontent.com"
     curl --silent --fail \
-        --output ".gitignore" \
+        --output $ignorefile \
         "$baseurl/$1/$2/master/$3"
     status=$? # return status of curl call
 }
@@ -64,6 +64,10 @@ then
     error_exit $LINENO "gitignore_name input required."
 fi
 
+# find repo top level
+gitroot=$(git rev-parse --show-toplevel) || exit 1
+ignorefile="$gitroot/.gitignore"
+
 # get file
 owner="github"
 repo="gitignore"
@@ -75,5 +79,5 @@ if [ "$status" != "0" ]
 then
     error_exit $LINENO "No gitignore template found for '$global$name'. Check case-sensitive name, or check --global flag."
 else
-    echo "Retrieved '$name.gitignore' as './.gitignore'"
+    echo "Retrieved '$name.gitignore' as '$ignorefile'"
 fi
