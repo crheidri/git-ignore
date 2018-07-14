@@ -58,7 +58,7 @@ github_api $owner $repo $file
 # check if url exists
 if [ "$status" != "0" ]
 then
-    echo "No gitignore template found for '$name'. Check case-sensitive name, or use '--global' flag."
+    echo "No gitignore template found for '$global$name'. Check case-sensitive name, or check '--global' flag."
     exit 1
 else
     echo "Retrieved '$name.gitignore' as './.gitignore'"
