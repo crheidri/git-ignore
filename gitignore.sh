@@ -65,7 +65,7 @@ then
 fi
 
 # find repo top level
-gitroot=$(git rev-parse --show-toplevel) || exit 1
+gitroot=$(git rev-parse --show-toplevel) || error_exit $LINENO
 ignorefile="$gitroot/.gitignore"
 
 # get file
