@@ -79,5 +79,5 @@ if [ "$status" != "0" ]
 then
     error_exit $LINENO "No gitignore template found for '$name'. Check case-sensitive name, or check --global flag."
 else
-    echo "Retrieved '$name.gitignore' as '$ignorefile'"
+    echo "Retrieved '$file' as '$ignorefile'"
 fi
