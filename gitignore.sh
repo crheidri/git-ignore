@@ -18,6 +18,15 @@ usage() {
     exit 1
 }
 
+error_exit() {
+#error_exit display message and exit as error.
+# Inputs:
+#   'lineno': line number of error
+#   'msg': error message to display
+	echo "$0: $1: ${2:-"Unknown Error"}" 1>&2
+	exit 1
+}
+
 function github_api() {
 #github_api fetch template from GitHub  as .gitignore
 # Inputs:
@@ -50,7 +59,10 @@ while [ "$1" != "" ]; do
 done
 
 # exit if no gitignore_name given
-: "${name:?gitignore_name input required.}"
+if [ -z "$name" ]
+then
+    error_exit $LINENO "gitignore_name input required."
+fi
 
 # get file
 owner="github"
@@ -61,8 +73,7 @@ github_api $owner $repo $file
 # check if url exists
 if [ "$status" != "0" ]
 then
-    echo "No gitignore template found for '$global$name'. Check case-sensitive name, or check '--global' flag."
-    exit 1
+    error_exit $LINENO "No gitignore template found for '$global$name'. Check case-sensitive name, or check --global flag."
 else
     echo "Retrieved '$name.gitignore' as './.gitignore'"
 fi
