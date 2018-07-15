@@ -48,7 +48,7 @@ global=
 name=
 while [ "$1" != "" ]; do
     case "$1" in
-        -g | --global )     global="Global/"
+        -g | --global )     global=1
                             ;;
         -h | --help )       usage
                             exit
@@ -67,7 +67,7 @@ fi
 # get file
 owner="github"
 repo="gitignore"
-file="$global$name.gitignore"
+file="${global:+"Global/"}$name.gitignore"
 github_api $owner $repo $file
 
 # check if url exists
