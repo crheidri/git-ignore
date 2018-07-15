@@ -27,7 +27,7 @@ error_exit() {
 	exit 1
 }
 
-function github_api() {
+github_api() {
 #github_api fetch template from GitHub  as .gitignore
 # Inputs:
 #   'owner': owner of repo on GitHub (default 'github')
