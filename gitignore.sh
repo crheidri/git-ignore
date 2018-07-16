@@ -27,6 +27,20 @@ error_exit() {
 	exit 1
 }
 
+status_exit() {
+#status_exit exit script with message if 0 status
+# Inputs:
+#   'status': status of command
+#   'msg': message to display if 0 status
+# Outputs:
+#   None
+    if [ "$1" = "0" ]
+    then
+        echo "$2"
+        exit 0
+    fi
+}
+
 github_api() {
 #github_api fetch template from GitHub  as .gitignore
 # Inputs:
@@ -82,11 +96,7 @@ owner="github"
 repo="gitignore"
 file="${global:+"Global/"}$name.gitignore"
 github_api $owner $repo $file
+status_exit $status "Retrieved '$file' as '$ignorefile'"
 
-# check if url exists
-if [ "$status" != "0" ]
-then
-    error_exit $LINENO "No gitignore template found for '$name'. Check case-sensitive name, or check --global flag."
-else
-    echo "Retrieved '$file' as '$ignorefile'"
-fi
+# if operation failed
+error_exit $LINENO "No gitignore template found for '$name'. Check case-sensitive name, or check --global flag."
