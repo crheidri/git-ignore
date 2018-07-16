@@ -44,19 +44,28 @@ github_api() {
 }
 
 # parse variables
-global=
-name=
-while [ "$1" != "" ]; do
+OPTIONS=gh
+LONGOPTS=global,help
+PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+eval set -- "$PARSED"
+
+# get inputs
+global= name=
+while true; do
     case "$1" in
-        -g | --global )     global=1
-                            ;;
-        -h | --help )       usage
-                            exit
-                            ;;
-        * )                 name=$1
+        -g|--global)    global=1
+                        shift
+                        ;;
+        -h|--help)      usage
+                        ;;
+        -- )            shift
+                        break
+                        ;;
+        * )             break
+                        ;;
     esac
-    shift
 done
+name=$1
 
 # exit if no gitignore_name given
 if [ -z "$name" ]
