@@ -68,9 +68,9 @@ done
 name=$1
 
 # exit if no gitignore_name given
-if [ -z "$name" ]
+if [ "$#" -ne "1" ]
 then
-    error_exit $LINENO "gitignore_name input required."
+    error_exit $LINENO "A single gitignore_name input is required."
 fi
 
 # find repo top level
