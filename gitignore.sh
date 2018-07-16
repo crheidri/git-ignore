@@ -23,7 +23,7 @@ error_exit() {
 # Inputs:
 #   'lineno': line number of error
 #   'msg': error message to display
-	echo "$0: $1: ${2:-"Unknown Error"}" 1>&2
+	echo "$0: $1: ${2:-"unknown error"}" 1>&2
 	exit 1
 }
 
@@ -60,7 +60,8 @@ github_api() {
 # parse variables
 OPTIONS=gh
 LONGOPTS=global,help
-PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@")
+PARSED=$(getopt --options=$OPTIONS --longoptions=$LONGOPTS --name "$0" -- "$@") \
+    || error_exit $LINENO "failed to parse input arguments."
 eval set -- "$PARSED"
 
 # get inputs
@@ -84,11 +85,12 @@ name=$1
 # exit if no gitignore_name given
 if [ "$#" -ne "1" ]
 then
-    error_exit $LINENO "A single gitignore_name input is required."
+    error_exit $LINENO "a single gitignore_name input is required."
 fi
 
 # find repo top level
-gitroot=$(git rev-parse --show-toplevel) || error_exit $LINENO
+gitroot=$(git rev-parse --show-toplevel) \
+    || error_exit $LINENO "not a git repository."
 ignorefile="$gitroot/.gitignore"
 
 # get file
@@ -96,7 +98,7 @@ owner="github"
 repo="gitignore"
 file="${global:+"Global/"}$name.gitignore"
 github_api $owner $repo $file
-status_exit $status "Retrieved '$file' as '$ignorefile'"
+status_exit $status "Retrieved '$file' as '$ignorefile'."
 
 # if operation failed
-error_exit $LINENO "No gitignore template found for '$name'. Check case-sensitive name, or check --global flag."
+error_exit $LINENO "no gitignore template found for '$name'. Check case-sensitive name, or check --global flag."
