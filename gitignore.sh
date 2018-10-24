@@ -1,7 +1,7 @@
 #!/bin/bash
 ## DESCRIPTION:
 ## This script sources .gitignore templates from https://github.com/github/gitignore
-## to the current directory.
+## to the root of the current git repo.
 ##
 ## See ./gitignore.sh --help for more help.
 ##
@@ -9,8 +9,13 @@
 ## LICENSE: GNU General Public License
 ## UPDATED: 7/9/2018
 
-# usage
+
 usage() {
+#usage display help message
+# Inputs:
+#   None
+# Outputs:
+#   None
     echo "usage: ./gitignore.sh [-g] gitignore_name"
     echo "  -g, --global      Look for global template (operating system or editor specific)."
     echo
@@ -23,6 +28,8 @@ error_exit() {
 # Inputs:
 #   'lineno': line number of error
 #   'msg': error message to display
+# Outputs:
+#   None
 	echo "$0: $1: ${2:-"unknown error"}" 1>&2
 	exit 1
 }

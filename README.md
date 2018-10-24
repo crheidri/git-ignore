@@ -1,16 +1,17 @@
 # gitignore.sh
-This bash script sources .gitignore templates from GitHub to the current directory as ./.gitignore. See the list of templates available at [github/gitignore](https://github.com/github/gitignore).
+This bash script sources .gitignore templates from GitHub to the root of the current git repository as ".gitignore". See the list of templates available at [github/gitignore](https://github.com/github/gitignore).
 
 NOTE: names are case-sensitive (e.g. 'TeX' is a valid template, but 'tex' is not).
 
 ## Getting Started
 Clone this repo and add it to your path, or create an alias in your ~/.bashrc such as:
-```
-alias gitignore="~/gitignore/gitignore.sh"
+```console
+foo@bar:~$ git clone https://github.com/crheidri/gitignore.git ~/gitignore
+foo@bar:~$ echo 'alias gitignore="~/gitignore/gitignore.sh"' >> ~/.bashrc
 ```
 
 ## Examples
-The easiest way to use this script is from the root of a git repository you want to add a .gitignore template to.
+The easiest way to use this script is from anywhere within the git repository you want to add a .gitignore template to.
 
 ### Project-specific gitignore
 ```console
