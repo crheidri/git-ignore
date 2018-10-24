@@ -10,6 +10,11 @@ foo@bar:~$ git clone https://github.com/crheidri/gitignore.git ~/gitignore
 foo@bar:~$ echo 'alias gitignore="~/gitignore/gitignore.sh"' >> ~/.bashrc
 ```
 
+Currently gitignore.sh requires ```curl``` to source templates from GitHub. On Ubuntu Linux you can install it with:
+```console
+foo@bar:~$ sudo apt install curl
+```
+
 ## Examples
 The easiest way to use this script is from anywhere within the git repository you want to add a .gitignore template to.
 
