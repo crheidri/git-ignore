@@ -23,14 +23,14 @@ The easiest way to use this script is from anywhere within the git repository yo
 foo@bar:~$ mkdir python_project
 foo@bar:~$ cd python_project
 foo@bar:~/python_project$ git init .
-foo@bar:~/python_project$ gitignore Python
+foo@bar:~/python_project$ git ignore Python
 ```
 This will create the Python .gitignore template as ~/python_project/.gitignore
 
 ### Global gitignore
 Templates organized as Global (operating system or editor specific) need to use the --global (-g) flag
 ```console
-foo@bar:~$ gitignore --global VisualStudioCode
+foo@bar:~$ git ignore --global VisualStudioCode
 ```
 
 ## License
